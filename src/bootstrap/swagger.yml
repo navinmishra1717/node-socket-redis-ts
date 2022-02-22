@@ -1,0 +1,73 @@
+## api definition
+openapi: 3.0.0
+info:
+  title: API
+  version: 1.0.0
+  description: API
+servers:
+  - url: http://localhost:3005
+paths:
+  ## AUTH
+  /logister:
+    post:
+      summary: Logister
+      description: Registers or logs in a user
+      operationId: logister
+      tags:
+        - Auth
+      # x-middleware:
+      #   - myMiddleware
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogisterRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogisterResponse'
+        '400':
+          description: Bad request
+        '422':
+          description: Validation Error
+        '500':
+          description: Internal Server Error
+        '501':
+          description: 501 error
+
+components:
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    LogisterRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        username:
+          type: string
+          example: navin
+        password:
+          type: string
+          example: navin123
+      required:
+        - username
+        - password
+    LogisterResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        token:
+          type: string
+        user:
+          type: object
+          properties:
+            uid:
+              type: string
+            username:
+              type: string
