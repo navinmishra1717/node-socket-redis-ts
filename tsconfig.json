@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      //   "*": ["node_modules/*"],
+      "@app/*": ["src/*", "dist/*"],
+      "@test/*": ["tests/*"]
+    },
+    "rootDirs": [
+      "./src"
+    ] /* Allow multiple folders to be treated as one when resolving modules. */,
+    "typeRoots": [
+      "./src/@types",
+      "./node_modules/@types"
+    ] /* Specify multiple folders that act like `./node_modules/@types`. */,
+    "resolveJsonModule": true /* Enable importing .json files */,
+    "strict": true
+  },
+  "include": ["src/**/*.ts", "tests/**/*.test.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules"]
+}
