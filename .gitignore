@@ -12,3 +12,4 @@ public/uploads/
 temp/*
 !temp/.gitkeep 
 .DS_Store
+*.sh
