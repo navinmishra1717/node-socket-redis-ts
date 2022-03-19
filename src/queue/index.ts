@@ -1,10 +1,6 @@
 import { Queue } from 'bullmq';
 import handlers from './handlers';
-import { HandlerJobData } from './handlerTypes';
-
-export enum HandlerType {
-  NewUser = 'NewUser',
-}
+import { HandlerJobData, HandlerType } from './handlerTypes';
 
 class QueueManager {
   protected queues: Partial<Record<HandlerType, Queue>> = {};

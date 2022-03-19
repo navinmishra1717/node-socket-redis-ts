@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
+import Queue from '@app/queue';
+import { HandlerType } from '@app/queue/handlerTypes';
 
 export const logister = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -16,6 +18,7 @@ export const logister = async (req: Request, res: Response, next: NextFunction) 
     //   });
     // }
     // const token = user.generateToken();
+    Queue.createJob<HandlerType.NewUser>(HandlerType.NewUser, { userUid: username });
     return res.json({
       username,
       password,
