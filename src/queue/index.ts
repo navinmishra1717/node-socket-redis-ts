@@ -9,17 +9,21 @@ export enum HandlerType {
 class QueueManager {
   protected queues: Partial<Record<HandlerType, Queue>> = {};
 
+  list() {
+    return Object.values(this.queues);
+  }
+
   initHandlers() {
     handlers.forEach((handler) => {
       this.queues[handler.name] = handler.queue;
     });
   }
 
-  createJob<T extends HandlerType>(name: T, data: HandlerJobData[T], type?: string) {
+  createJob<T extends HandlerType>(name: T, data: HandlerJobData[T], type?: string, options: object = {}) {
     if (!this.queues[name]) {
       throw new Error(`Queue ${name} not found`);
     }
-    return this.queues[name]!.add(type || name, data);
+    return this.queues[name]!.add(type || name, data, options);
   }
 }
 
