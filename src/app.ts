@@ -4,7 +4,7 @@ import { applyMiddlewares } from '@app/bootstrap/middleware';
 import errorHandler from '@app/bootstrap/middleware/errorHandler';
 import Queue from '@app/queue';
 import queueUi from '@app/queue/ui';
-import Redis from '@app/redis';
+import Redis from '@app/libs/redis';
 
 const app: Application = express();
 
