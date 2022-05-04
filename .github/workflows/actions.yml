@@ -1,40 +1,38 @@
 name: Github Actions Demo
 on:
-  push:
+  pull_request:
     branches:
-      - ci-cd
+      - main
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
-  build:
-  runs-on: [ubuntu-latest]
-  # env:
-  #   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  test:
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up nodejs version 16
-      uses: actions/setup-node@v2.4.0
-      with:
-        node-version: 16
+      - name: Set up nodejs version 16
+        uses: actions/setup-node@v2.4.0
+        with:
+          node-version: 16
 
-    - name: Install packages
-      run: yarn install
+      - name: Install packages
+        run: yarn install
 
-    - name: Linter
-      run: yarn lint
+      - name: Linter
+        run: yarn lint
 
-    - name: Build
-      run: yarn build
+      - name: Build
+        run: yarn build
 
-    - name: Send GitHub Action trigger data to Slack workflow
-      id: slack
-      uses: slackapi/slack-github-action@v1.19.0
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Send GitHub Action trigger data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.19.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-    - name: Test
-      run: yarn test
+      - name: Test
+        run: yarn test
