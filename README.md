@@ -1,6 +1,6 @@
-# node-socket-redis-ts
+# node-ts
 
-basic application with node, socket and redis in typescript
+complete package with node, typescript, jobs, socket, design-patterns, redis
 
 # API
 
