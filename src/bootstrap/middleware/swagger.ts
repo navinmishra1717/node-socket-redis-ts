@@ -6,7 +6,7 @@ import * as OpenApiValidator from 'express-openapi-validator';
 import { JWT } from '@app/bootstrap/middleware/jwt';
 import controllers from '@app/controllers';
 
-export const YAML_FILE:string = './src/bootstrap/swagger.yml';
+export const YAML_FILE: string = './src/bootstrap/swagger.yml';
 
 const swagger = async (app: Application) => {
   const apiDefinition = YAML.load(YAML_FILE);
@@ -18,12 +18,14 @@ const swagger = async (app: Application) => {
     );
   }
   // validation
-  app.use(OpenApiValidator.middleware({
-    apiSpec: YAML_FILE,
-    validateRequests: true,
-    // validateResponses: true,
-    validateSecurity: true,
-  }));
+  app.use(
+    OpenApiValidator.middleware({
+      apiSpec: YAML_FILE,
+      validateRequests: true,
+      // validateResponses: true,
+      validateSecurity: true,
+    }),
+  );
 
   const connect = connector(controllers, apiDefinition, {
     // options: security, middlewares, etc.
@@ -31,7 +33,7 @@ const swagger = async (app: Application) => {
       JWT,
     },
     middleware: {
-    // myMiddleware: someMiddlewareFunction
+      // myMiddleware: someMiddlewareFunction
     },
   });
   connect(app); // connect all routes
