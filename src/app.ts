@@ -12,6 +12,9 @@ const App = async (): Promise<Application> => {
   try {
     // await Queue.initHandlers();
     // app.use('/queue', queueUi());
+    app.use('/', (req, res) => {
+      res.send(`process ${process.pid} says hello!`).end();
+    });
     await applyMiddlewares(app);
     await swagger(app);
     app.use(errorHandler);
