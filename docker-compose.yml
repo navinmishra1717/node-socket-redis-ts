@@ -1,0 +1,19 @@
+services:
+  reverseproxy:
+    image: reverseproxy
+    ports:
+      - 3005:3005
+      - 3006: 3006
+    restart: always
+
+  nginx:
+    depends_on:
+      - reverseproxy
+    image: nginx:apline
+    restart: always
+
+  apache:
+    depends_on:
+      - reverseproxy
+    image: httpd:apline
+    restart: always
